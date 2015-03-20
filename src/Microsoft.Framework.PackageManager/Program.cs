@@ -37,6 +37,7 @@ namespace Microsoft.Framework.PackageManager
             var app = new CommandLineApplication();
             app.Name = "kpm";
 
+            var optioneDebug = app.Option("--debug", "Wait for debugger to attach", CommandOptionType.NoValue);
             var optionVerbose = app.Option("-v|--verbose", "Show verbose output", CommandOptionType.NoValue);
             app.HelpOption("-?|-h|--help");
             app.VersionOption("--version", GetVersion);
