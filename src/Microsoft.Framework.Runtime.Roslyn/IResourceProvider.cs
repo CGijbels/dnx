@@ -3,11 +3,12 @@
 
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {
     public interface IResourceProvider
     {
-        IList<ResourceDescription> GetResources(Project project);
+        IList<ResourceDescription> GetResources(ICompilationProject project);
     }
 }

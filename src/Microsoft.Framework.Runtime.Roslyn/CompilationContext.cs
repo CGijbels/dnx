@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.Versioning;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {
@@ -14,7 +15,7 @@ namespace Microsoft.Framework.Runtime.Roslyn
     {
         private readonly Lazy<IList<ResourceDescription>> _resources;
 
-        public Project Project { get; private set; }
+        public ICompilationProject Project { get; private set; }
 
         // Processed information
         public CSharpCompilation Compilation { get; set; }
@@ -24,11 +25,11 @@ namespace Microsoft.Framework.Runtime.Roslyn
         public IList<ResourceDescription> Resources { get { return _resources.Value; } }
 
         public IList<ICompileModule> Modules { get; } = new List<ICompileModule>();
-        
+
         public IProjectContext ProjectContext { get; set; }
 
         public CompilationContext(CSharpCompilation compilation,
-                                  Project project,
+                                  ICompilationProject project,
                                   FrameworkName targetFramework,
                                   string configuration)
         {

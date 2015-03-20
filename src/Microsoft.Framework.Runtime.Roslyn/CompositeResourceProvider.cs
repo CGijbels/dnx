@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {
@@ -16,7 +17,7 @@ namespace Microsoft.Framework.Runtime.Roslyn
             _providers = providers;
         }
 
-        public IList<ResourceDescription> GetResources(Project project)
+        public IList<ResourceDescription> GetResources(ICompilationProject project)
         {
             return _providers.SelectMany(provider => provider.GetResources(project)).ToList();
         }

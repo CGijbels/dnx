@@ -8,12 +8,13 @@ using System.Linq;
 using System.Resources;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.Framework.Runtime.Compilation;
 
 namespace Microsoft.Framework.Runtime.Roslyn
 {
     public class ResxResourceProvider : IResourceProvider
     {
-        public IList<ResourceDescription> GetResources(Project project)
+        public IList<ResourceDescription> GetResources(ICompilationProject project)
         {
             return Directory.EnumerateFiles(project.ProjectDirectory, "*.resx", SearchOption.AllDirectories)
                             .Select(resxFilePath =>
