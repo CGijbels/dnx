@@ -121,7 +121,24 @@ namespace Microsoft.Framework.Runtime.Roslyn
 
             compilation = ApplyVersionInfo(compilation, project, parseOptions);
 
-            var compilationContext = new CompilationContext(compilation, project, target.TargetFramework, target.Configuration);
+            CompositeResourceProvider resourceProvider = new CompositeResourceProvider(new IResourceProvider[]
+            {
+                new EmbeddedResourceProvider(),
+                new ResxResourceProvider()
+            });
+
+            var compilationContext = new CompilationContext(
+                compilation,
+                project, 
+                target.TargetFramework, 
+                target.Configuration,
+                () => resourceProvider
+                    .GetResources(project)
+                    .Select(res => new ResourceDescription(
+                        res.Name, 
+                        res.Stream, 
+                        isPublic: true))
+                    .ToList());
 
             if (isMainAspect && project.Files.PreprocessSourceFiles.Any())
             {

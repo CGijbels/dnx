@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Versioning;
 
 namespace Microsoft.Framework.Runtime
 {
@@ -16,7 +16,8 @@ namespace Microsoft.Framework.Runtime
         public IMetadataProjectReference GetProjectReference(
             Project project,
             ILibraryKey target,
-            Func<ILibraryExport> referenceResolver)
+            Func<ILibraryExport> referenceResolver,
+            Func<IList<ResourceDescriptor>> resourcesResolver)
         {
             // The target framework and configuration are assumed to be correct
             // in the design time process

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
-namespace Microsoft.Framework.Runtime.Roslyn
+namespace Microsoft.Framework.Runtime
 {
     public class CompositeResourceProvider : IResourceProvider
     {
@@ -16,7 +16,7 @@ namespace Microsoft.Framework.Runtime.Roslyn
             _providers = providers;
         }
 
-        public IList<ResourceDescription> GetResources(Project project)
+        public IList<ResourceDescriptor> GetResources(Project project)
         {
             return _providers.SelectMany(provider => provider.GetResources(project)).ToList();
         }

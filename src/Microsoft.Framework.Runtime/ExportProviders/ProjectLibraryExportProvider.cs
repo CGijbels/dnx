@@ -92,11 +92,18 @@ namespace Microsoft.Framework.Runtime
                         target,
                         dependenciesOnly: true));
 
+                    CompositeResourceProvider resourceProvider = new CompositeResourceProvider(new IResourceProvider[]
+                    {
+                        new EmbeddedResourceProvider(),
+                        new ResxResourceProvider()
+                    });
+
                     // Resolve the project export
                     IMetadataProjectReference projectReference = projectReferenceProvider.GetProjectReference(
                         project,
                         target,
-                        () => projectExport.Value);
+                        () => projectExport.Value,
+                        () => resourceProvider.GetResources(project));
 
                     metadataReferences.Add(projectReference);
 
