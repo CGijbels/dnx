@@ -375,8 +375,17 @@ Finished:
 int wmain(int argc, wchar_t* argv[])
 {
     // Check for the debug flag before doing anything else
-    for (int i = 0; i < argc; i++)
+    for (int i = 1; i < argc; i++)
     {
+        //anything without - or -- is appbase
+        if (::_wcsnicmp(argv[i], L"-", 1) != 0)
+        {
+            break;
+        }
+        if (StringsEqual(argv[i], L"--appbase"))
+        {
+            break;
+        }
         if (StringsEqual(argv[i], L"--debug"))
         {
             if (!IsDebuggerPresent())
@@ -391,6 +400,7 @@ int wmain(int argc, wchar_t* argv[])
                 }
 
                 ::wprintf_s(L"Debugger attached.\r\n");
+                break;
             }
         }
     }
