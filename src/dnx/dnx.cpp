@@ -375,16 +375,18 @@ Finished:
 int wmain(int argc, wchar_t* argv[])
 {
     // Check for the debug flag before doing anything else
-    for (int i = 1; i < argc; i++)
+    for (int i = 1; i < argc; ++i)
     {
-        //anything without - or -- is appbase
-        if (::_wcsnicmp(argv[i], L"-", 1) != 0)
+        //anything without - or -- is appbase or non-dnx command
+        if (argv[i][0] != L'-')
         {
             break;
         }
         if (StringsEqual(argv[i], L"--appbase"))
         {
-            break;
+            //skip path argument
+            ++i;
+            continue;
         }
         if (StringsEqual(argv[i], L"--debug"))
         {

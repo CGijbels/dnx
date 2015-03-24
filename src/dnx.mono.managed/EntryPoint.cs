@@ -16,9 +16,29 @@ public class EntryPoint
     public static int Main(string[] arguments)
     {
         // Check for the debug flag before doing anything else
-        bool hasDebugWaitFlag = arguments.Any(arg => string.Equals(arg, "--debug", StringComparison.OrdinalIgnoreCase));
+        bool hasDebugWaitFlag = false;
+        for (var i = 0; i < arguments.Count; ++i)
+        {
+            //anything without - or -- is appbase or non-dnx command
+            if (arguments[i][0] != '-')
+            {
+                break;
+            }
+            if(arguments[i] == "--appbase")
+            {
+                //skip path argument
+                ++i;
+                continue;
+            }
+            if(arguments[i] == "--debug")
+            {
+                hasDebugWaitFlag = true;
+                break;
+            }
+        }
+
         if (hasDebugWaitFlag)
-        { 
+        {
             if (!Debugger.IsAttached)
             {
                 Process currentProc = Process.GetCurrentProcess();
